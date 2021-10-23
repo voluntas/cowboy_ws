@@ -1,0 +1,27 @@
+<html>
+    <script type='text/javascript'>
+        const ws = new WebSocket('ws://127.0.0.1:5000/echo')
+        ws.onopen = function() {
+            console.log('onopen');
+        };
+        ws.onclose = function(e) {
+            console.log('onclose');
+        };
+        ws.onmessage = function(msg) {
+            console.log('onmessage')
+        };
+        function junk() {
+            for(var word = ""; word.length < 9000; word += "a"){}
+            ws.send(word);
+        }
+        document.addEventListener('DOMContentLoaded',function(e){
+            // サーバーにデータを送る
+            document.getElementById('junk').addEventListener('click',function(e){
+                junk();
+            });
+        });
+    </script>
+    <body>
+        <input type=button id=junk value="Send junk">
+    </body>
+</html>
